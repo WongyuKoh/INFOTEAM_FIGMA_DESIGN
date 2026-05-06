@@ -33,6 +33,7 @@ class _InputBoxState extends State<InputBox> {
       width: 366,
       height: 75,
       child: Column(
+        spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -45,7 +46,6 @@ class _InputBoxState extends State<InputBox> {
               ),
             ),
           ),
-          SizedBox(height: 8,),
           SizedBox(
             height: 48,
             child: TextField(
