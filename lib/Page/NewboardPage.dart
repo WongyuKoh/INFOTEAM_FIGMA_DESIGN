@@ -5,6 +5,8 @@ import '../gen/assets.gen.dart';
 import '../widgets/Input.dart';
 import '../widgets/Navigator.dart';
 import '../widgets/Header.dart';
+import '../api/api_client.dart';
+import '../api/board_service.dart';
 
 @RoutePage()
 class NewboardPage extends StatefulWidget {
@@ -15,15 +17,43 @@ class NewboardPage extends StatefulWidget {
 }
 
 class _NewboardPageState extends State<NewboardPage> {
+  final TextEditingController _boardnamecontroller = TextEditingController();
+  final _boardService = BoardService(ApiClient().dio);
+
+  @override
+  void dispose() {
+    _boardnamecontroller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _createBoard() async {
+    if (_boardnamecontroller.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('게시판 이름을 입력해주세요')),
+      );
+      return;
+    }
+    try {
+      final result = await _boardService.createBoard({'title': _boardnamecontroller.text});
+      print('[게시판 생성] 성공: $result');
+      if (mounted) context.router.maybePop(true);
+    } catch (e) {
+      print('[게시판 생성] 실패: $e');
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('게시판 생성 실패: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          NewboardCreateHeader(),
+          NewboardCreateHeader(onComplete: _createBoard),
           Expanded(
-            child: Newboard(),
+            child: Newboard(controller: _boardnamecontroller),
           ),
         ]
       ),
@@ -31,37 +61,23 @@ class _NewboardPageState extends State<NewboardPage> {
   }
 }
 
-class Newboard extends StatefulWidget {
-  const Newboard({super.key});
-
-  @override
-  State<Newboard> createState() => _NewboardState();
-}
-
-class _NewboardState extends State<Newboard> {
-  final TextEditingController boardnamecontroller = TextEditingController();
-  
-
-  @override
-  void dispose() {
-    boardnamecontroller.dispose();  // 메모리 해제
-    super.dispose();
-  }
+class Newboard extends StatelessWidget {
+  final TextEditingController controller;
+  const Newboard({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width : double.infinity,
-      //color: Theme.of(context).colorScheme.primaryContainer,
+      width: double.infinity,
       padding: EdgeInsets.only(
-        top: 16.0,    // 위쪽 여백
-        left: 18.0,   // 왼쪽 여백
-        right: 18.0,  // 오른쪽 여백
+        top: 16.0,
+        left: 18.0,
+        right: 18.0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InputBox(InputBoxText: '게시판 이름',controller: boardnamecontroller,),
+          InputBox(InputBoxText: '게시판 이름', controller: controller),
         ],
       ),
     );
