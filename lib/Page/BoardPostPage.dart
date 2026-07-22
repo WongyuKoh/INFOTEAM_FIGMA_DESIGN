@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import '../widgets/Header.dart';
 import '../widgets/NoticeThumbnail.dart';
-import '../api/api_client.dart';
-import '../api/post_service.dart';
+import '../api/core/api_client.dart';
+import '../api/post/post_models.dart';
+import '../api/post/post_service.dart';
 import '../router/app_router.gr.dart';
 
 @RoutePage()
 class BoardPostPage extends StatefulWidget {
   final String boardName;
   final String boardUuid;
-  const BoardPostPage({super.key, required this.boardName, required this.boardUuid});
+  const BoardPostPage({
+    super.key,
+    required this.boardName,
+    required this.boardUuid,
+  });
 
   @override
   State<BoardPostPage> createState() => _BoardPostPageState();
@@ -18,7 +23,7 @@ class BoardPostPage extends StatefulWidget {
 
 class _BoardPostPageState extends State<BoardPostPage> {
   final _postService = PostService(ApiClient().dio);
-  List _posts = [];
+  List<Post> _posts = [];
   bool _isLoading = true;
 
   @override
@@ -32,7 +37,7 @@ class _BoardPostPageState extends State<BoardPostPage> {
       final result = await _postService.getPosts(boardUuid: widget.boardUuid);
       if (!mounted) return;
       setState(() {
-        _posts = result is List ? result : (result['posts'] ?? []);
+        _posts = result.list;
         _isLoading = false;
       });
     } catch (e) {
@@ -49,12 +54,14 @@ class _BoardPostPageState extends State<BoardPostPage> {
         children: [
           PostHeader(
             postName: widget.boardName,
-            onEdit: () => context.router.push(CreatePostRoute(boardUuid: widget.boardUuid)),
+            onEdit: () => context.router.push(
+              CreatePostRoute(boardUuid: widget.boardUuid),
+            ),
           ),
           Expanded(
             child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : _posts.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : _posts.isEmpty
                 ? Center(child: Text('게시글이 없습니다'))
                 : Container(
                     width: double.infinity,
@@ -68,12 +75,10 @@ class _BoardPostPageState extends State<BoardPostPage> {
                       separatorBuilder: (_, __) => SizedBox(height: 20),
                       itemBuilder: (context, index) {
                         final post = _posts[index];
-                        final imageUrl = post['imageUrl'] as String?;
                         return NoticeThumbnail(
-                          noticeTitle: post['title'] ?? '',
-                          noticeDetail: post['body'] ?? '',
-                          ImageExist: imageUrl != null,
-                          imageUrl: imageUrl,
+                          noticeTitle: post.title,
+                          noticeDetail: post.body,
+                          postContext: post,
                         );
                       },
                     ),

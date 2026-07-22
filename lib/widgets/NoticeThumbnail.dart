@@ -3,48 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
-
+import 'dart:convert'; // base64Decode
+import 'dart:typed_data'; // Uint8List
+import '../api/post/post_models.dart';
 
 class NoticeThumbnail extends StatelessWidget {
-
   final String noticeTitle;
   final String noticeDetail;
-  final bool ImageExist;
-  final String? imageUrl;
+  final Post postContext;
 
-  const NoticeThumbnail({super.key, required this.noticeTitle, required this.ImageExist, this.noticeDetail = '', this.imageUrl});
+  const NoticeThumbnail({
+    super.key,
+    required this.noticeTitle,
+    required this.postContext,
+    this.noticeDetail = '',
+  });
 
   @override
   Widget build(BuildContext context) {
-
     var noticeform;
 
-    switch(ImageExist){
+    switch (postContext.hasImage) {
       case false:
         noticeform = Text(
           noticeDetail,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         );
       case true:
-        noticeform = imageUrl != null
-          ? Image.network(
-              imageUrl!,
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-            )
-          : Assets.images.logo.image(
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-            );
+        noticeform = Image.memory(base64Decode(postContext.thumbnailBase64!));
     }
 
     return GestureDetector(
-      onTap: (){
-        context.router.push(PostRoute()); //
-        print("asdasdasda");
+      onTap: () {
+        context.router.push(PostRoute(postContext: postContext)); //
+        // print("asdasdasda");
       },
       child: Column(
         children: [
@@ -52,9 +44,9 @@ class NoticeThumbnail extends StatelessWidget {
             width: double.infinity,
 
             padding: EdgeInsets.only(
-              top: 15.0,    // 위쪽 여백
-              left: 14.0,   // 왼쪽 여백
-              right: 14.0,  // 오른쪽 여백
+              top: 15.0, // 위쪽 여백
+              left: 14.0, // 왼쪽 여백
+              right: 14.0, // 오른쪽 여백
               bottom: 14.0,
             ),
             decoration: BoxDecoration(
@@ -71,15 +63,11 @@ class NoticeThumbnail extends StatelessWidget {
               children: [
                 Text(
                   noticeTitle,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 noticeform,
               ],
-
-            )
+            ),
           ),
         ],
       ),

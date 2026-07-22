@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'gen/fonts.gen.dart';
 import 'router/app_router.dart';
 
 void main() {
@@ -15,14 +16,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
       title: 'Namer App',
-      theme: ThemeData(
-        useMaterial3: true,
+      // 스크롤 끝에서 내용이 늘어나는 Android stretch 효과 제거
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        overscroll: false,
       ),
+      theme: ThemeData(useMaterial3: true, fontFamily: FontFamily.pretendard),
     );
   }
 }
-
-
 
 // @RoutePage()
 // class HomePage extends StatelessWidget {

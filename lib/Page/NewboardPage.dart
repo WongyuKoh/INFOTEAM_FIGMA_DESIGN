@@ -5,8 +5,8 @@ import '../gen/assets.gen.dart';
 import '../widgets/Input.dart';
 import '../widgets/Navigator.dart';
 import '../widgets/Header.dart';
-import '../api/api_client.dart';
-import '../api/board_service.dart';
+import '../api/core/api_client.dart';
+import '../api/board/board_service.dart';
 
 @RoutePage()
 class NewboardPage extends StatefulWidget {

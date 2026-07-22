@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // Android 에뮬레이터(flutter_phone)가 꺼져 있으면 켜고, 부팅 완료까지 대기
+            "label": "start-android-emulator",
+            "type": "shell",
+            "command": "EMU=/opt/homebrew/share/android-commandlinetools/emulator/emulator; ADB=/opt/homebrew/share/android-commandlinetools/platform-tools/adb; if ! $ADB devices | grep -q 'emulator.*device$'; then nohup $EMU -avd flutter_phone >/dev/null 2>&1 & fi; $ADB wait-for-device; i=0; until [ \"$($ADB shell getprop sys.boot_completed 2>/dev/null | tr -d '\\r')\" = \"1\" ] || [ $i -ge 90 ]; do sleep 2; i=$((i+1)); done; echo '에뮬레이터 준비 완료'",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "close": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

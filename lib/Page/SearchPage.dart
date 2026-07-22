@@ -6,8 +6,9 @@ import '../gen/assets.gen.dart';
 import '../widgets/Navigator.dart';
 import '../widgets/Header.dart';
 import '../widgets/NoticeThumbnail.dart';
-import '../api/api_client.dart';
-import '../api/post_service.dart';
+import '../api/core/api_client.dart';
+import '../api/post/post_models.dart';
+import '../api/post/post_service.dart';
 
 @RoutePage()
 class SearchPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   final _postService = PostService(ApiClient().dio);
 
-  List _results = [];
+  List<Post> _results = [];
   bool _isLoading = false;
   String _lastSearched = '';
   Timer? _debounce;
@@ -62,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
       final result = await _postService.searchPosts(keyword);
       if (!mounted) return;
       setState(() {
-        _results = result is List ? result : (result['posts'] ?? []);
+        _results = result.list;
         _lastSearched = keyword;
         _isLoading = false;
       });
@@ -89,14 +90,19 @@ class _SearchPageState extends State<SearchPage> {
       body: Stack(
         children: [
           Positioned(
-            top: 0, left: 0, right: 0,
+            top: 0,
+            left: 0,
+            right: 0,
             child: SearchHeader(controller: _searchController),
           ),
           Positioned(
-            top: 51 + statusBarHeight, left: 0, right: 0, bottom: 0,
+            top: 51 + statusBarHeight,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : isEmpty || _results.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : isEmpty || _results.isEmpty
                 ? _buildEmptyView(isEmpty)
                 : _buildResultList(),
           ),
@@ -125,10 +131,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           Text(
             isEmpty ? '검색 키워드를 입력해보세요' : '검색 결과가 없습니다',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 16,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
           ),
         ],
       ),
@@ -144,12 +147,10 @@ class _SearchPageState extends State<SearchPage> {
         separatorBuilder: (_, __) => SizedBox(height: 20),
         itemBuilder: (context, index) {
           final post = _results[index];
-          final imageUrl = post['imageUrl'] as String?;
           return NoticeThumbnail(
-            noticeTitle: post['title'] ?? '',
-            noticeDetail: post['body'] ?? '',
-            ImageExist: imageUrl != null,
-            imageUrl: imageUrl,
+            noticeTitle: post.title,
+            noticeDetail: post.body,
+            postContext: post,
           );
         },
       ),

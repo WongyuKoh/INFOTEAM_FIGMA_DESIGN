@@ -3,9 +3,11 @@ import 'package:auto_route/auto_route.dart';
 import '../widgets/Navigator.dart';
 import '../widgets/Header.dart';
 import '../widgets/NoticeThumbnail.dart';
-import '../api/api_client.dart';
-import '../api/post_service.dart';
-import '../api/board_service.dart';
+import '../api/core/api_client.dart';
+import '../api/board/board_models.dart';
+import '../api/board/board_service.dart';
+import '../api/post/post_models.dart';
+import '../api/post/post_service.dart';
 import '../router/app_router.gr.dart';
 
 @RoutePage()
@@ -19,7 +21,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _postService = PostService(ApiClient().dio);
   final _boardService = BoardService(ApiClient().dio);
-  List _posts = [];
+  List<Post> _posts = [];
   bool _isLoading = true;
 
   @override
@@ -30,10 +32,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _fetchPosts() async {
     try {
-      final result = await _postService.getPosts();
+      PostListResponse result = await _postService.getPosts();
       if (!mounted) return;
       setState(() {
-        _posts = result is List ? result : (result['posts'] ?? []);
+        _posts = result.list;
         _isLoading = false;
       });
     } catch (e) {
@@ -47,14 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final result = await _boardService.getBoards();
       if (!mounted) return;
-      final boards = result is List ? result : (result['boards'] ?? []);
+      final boards = result.list;
       if (boards.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('먼저 게시판을 만들어주세요')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('먼저 게시판을 만들어주세요')));
         return;
       }
-      final selected = await showModalBottomSheet<Map<String, dynamic>>(
+      final selected = await showModalBottomSheet<Board>(
         context: context,
         builder: (ctx) => SafeArea(
           child: Column(
@@ -62,21 +64,28 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Padding(
                 padding: EdgeInsets.all(16),
-                child: Text('어떤 게시판에 글을 쓸까요?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text(
+                  '어떤 게시판에 글을 쓸까요?',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
-              ...boards.map<Widget>((b) => ListTile(
-                    title: Text(b['title'] ?? ''),
-                    onTap: () => Navigator.of(ctx).pop(Map<String, dynamic>.from(b)),
-                  )),
+              // 게시판이 많으면 시트 높이를 넘기므로 목록만 스크롤되게 한다.
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: boards.length,
+                  itemBuilder: (_, index) => ListTile(
+                    title: Text(boards[index].title),
+                    onTap: () => Navigator.of(ctx).pop(boards[index]),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       );
       if (selected == null || !mounted) return;
-      await context.router.push(
-        CreatePostRoute(boardUuid: selected['uuid'] ?? ''),
-      );
+      await context.router.push(CreatePostRoute(boardUuid: selected.id));
       // 글쓰기 페이지에서 돌아오면 게시글 목록 새로고침
       if (mounted) {
         setState(() => _isLoading = true);
@@ -84,9 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('게시판 목록을 불러올 수 없습니다: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('게시판 목록을 불러올 수 없습니다: $e')));
     }
   }
 
@@ -101,29 +110,27 @@ class _MyHomePageState extends State<MyHomePage> {
             child: _isLoading
                 ? Center(child: CircularProgressIndicator())
                 : _posts.isEmpty
-                    ? Center(child: Text('게시글이 없습니다'))
-                    : Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(
-                          top: 16.0,
-                          left: 18.0,
-                          right: 18.0,
-                        ),
-                        child: ListView.separated(
-                          itemCount: _posts.length,
-                          separatorBuilder: (_, __) => SizedBox(height: 20),
-                          itemBuilder: (context, index) {
-                            final post = _posts[index];
-                            final imageUrl = post['imageUrl'] as String?;
-                            return NoticeThumbnail(
-                              noticeTitle: post['title'] ?? '',
-                              noticeDetail: post['body'] ?? '',
-                              ImageExist: imageUrl != null,
-                              imageUrl: imageUrl,
-                            );
-                          },
-                        ),
-                      ),
+                ? Center(child: Text('게시글이 없습니다'))
+                : Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(
+                      top: 16.0,
+                      left: 18.0,
+                      right: 18.0,
+                    ),
+                    child: ListView.separated(
+                      itemCount: _posts.length,
+                      separatorBuilder: (_, __) => SizedBox(height: 20),
+                      itemBuilder: (context, index) {
+                        final post = _posts[index];
+                        return NoticeThumbnail(
+                          noticeTitle: post.title,
+                          noticeDetail: post.body,
+                          postContext: post,
+                        );
+                      },
+                    ),
+                  ),
           ),
         ],
       ),

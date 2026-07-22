@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
-import '../api/token_storage.dart';
+import '../api/core/token_storage.dart';
 
 
 class MainBottomNavigationBar extends StatefulWidget {

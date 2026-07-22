@@ -273,7 +273,7 @@ class NewboardCreateHeader extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Container(
-        width: 402,
+        width: double.infinity,
         height: 56,
         padding: EdgeInsets.fromLTRB(20,8,20,8),
         child: Stack(
@@ -283,8 +283,9 @@ class NewboardCreateHeader extends StatelessWidget {
               child : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 327,
+                  // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
+                  Expanded(
+                    child: Container(
                     margin: EdgeInsets.fromLTRB(0,4,0,4),
                     child: Row(
                       children: [
@@ -292,7 +293,7 @@ class NewboardCreateHeader extends StatelessWidget {
                         Expanded(child: SizedBox())
                       ],
                     )
-                  ),
+                  )),
                   SizedBox(
                     width: 35,
                     height: 29,
@@ -427,7 +428,6 @@ class _SearchHeaderState extends State<SearchHeader> {
                   child: GestureDetector(
                     onTap: (){
                       context.router.back();
-                      print("취소 버튼 누름");
                     },
                     child : Text(
                       '취소',
@@ -457,7 +457,7 @@ class NewpostCreateHeader extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Container(
-        width: 402,
+        width: double.infinity,
         height: 56,
         padding: EdgeInsets.fromLTRB(20,8,20,8),
         child: Stack(
@@ -467,8 +467,9 @@ class NewpostCreateHeader extends StatelessWidget {
               child : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 327,
+                  // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
+                  Expanded(
+                    child: Container(
                     margin: EdgeInsets.fromLTRB(0,4,0,4),
                     child: Row(
                       children: [
@@ -476,7 +477,7 @@ class NewpostCreateHeader extends StatelessWidget {
                         Expanded(child: SizedBox())
                       ],
                     )
-                  ),
+                  )),
                   SizedBox(
                     width: 35,
                     height: 29,
@@ -534,7 +535,7 @@ class NewtagCreateHeader extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Container(
-        width: 402,
+        width: double.infinity,
         height: 56,
         padding: EdgeInsets.fromLTRB(20,8,20,8),
         child: Stack(
@@ -544,8 +545,9 @@ class NewtagCreateHeader extends StatelessWidget {
               child : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 327,
+                  // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
+                  Expanded(
+                    child: Container(
                     margin: EdgeInsets.fromLTRB(0,4,0,4),
                     child: Row(
                       children: [
@@ -553,7 +555,7 @@ class NewtagCreateHeader extends StatelessWidget {
                         Expanded(child: SizedBox())
                       ],
                     )
-                  ),
+                  )),
                   SizedBox(
                     width: 35,
                     height: 29,
