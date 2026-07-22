@@ -427,7 +427,6 @@ class _SearchHeaderState extends State<SearchHeader> {
                   child: GestureDetector(
                     onTap: (){
                       context.router.back();
-                      print("취소 버튼 누름");
                     },
                     child : Text(
                       '취소',
