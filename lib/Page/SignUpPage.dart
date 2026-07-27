@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import '../widgets/Input.dart';
 import '../widgets/Header.dart';
 import '../widgets/Button.dart';
-import '../api/api_client.dart';
-import '../api/auth_service.dart';
-import '../api/token_storage.dart';
+import '../api/core/api_client.dart';
+import '../api/core/token_storage.dart';
+import '../api/auth/auth_service.dart';
 import '../router/app_router.gr.dart';
 
 @RoutePage()
@@ -50,8 +51,12 @@ class _SignUpPageState extends State<SignUpPage> {
       TokenStorage.nickname = _nicknameController.text;
       if (mounted) context.router.replace(const LoginRoute());
     } catch (e) {
+      // 서버가 보낸 에러 본문(예: "이미 존재하는 이메일")이 있으면 그걸 보여준다.
+      final message = (e is DioException && e.response?.data != null)
+          ? '${e.response?.statusCode}: ${e.response?.data}'
+          : '$e';
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('회원가입 실패: $e')),
+        SnackBar(content: Text('회원가입 실패: $message')),
       );
     }
   }

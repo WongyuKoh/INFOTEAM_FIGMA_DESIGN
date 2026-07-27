@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../core/api_config.dart';
+
 part 'tag_service.g.dart';
 
-@RestApi(baseUrl: 'https://api.bulletin.newbies.gistory.me')
+@RestApi(baseUrl: apiBaseUrl)
 abstract class TagService {
   factory TagService(Dio dio, {String baseUrl}) = _TagService;
 

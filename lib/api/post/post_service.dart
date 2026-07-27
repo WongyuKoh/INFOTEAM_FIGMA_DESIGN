@@ -1,20 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../core/api_config.dart';
+import 'post_models.dart';
+
 part 'post_service.g.dart';
 
-@RestApi(baseUrl: 'https://api.bulletin.newbies.gistory.me')
+@RestApi(baseUrl: apiBaseUrl)
 abstract class PostService {
   factory PostService(Dio dio, {String baseUrl}) = _PostService;
 
   @GET('/posts')
-  Future<dynamic> getPosts({
+  Future<PostListResponse> getPosts({
     @Query('boardUuid') String? boardUuid,
     @Query('tag') String? tag,
   });
 
   @GET('/posts/{uuid}')
-  Future<dynamic> getPost(@Path('uuid') String uuid);
+  Future<Post> getPost(@Path('uuid') String uuid);
 
   @POST('/posts')
   Future<dynamic> createPost(
@@ -23,5 +26,5 @@ abstract class PostService {
   );
 
   @GET('/posts/search')
-  Future<dynamic> searchPosts(@Query('keyword') String keyword);
+  Future<PostListResponse> searchPosts(@Query('keyword') String keyword);
 }

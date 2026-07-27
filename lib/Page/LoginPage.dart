@@ -3,9 +3,10 @@ import 'package:auto_route/auto_route.dart';
 import '../widgets/Input.dart';
 import '../widgets/Header.dart';
 import '../widgets/Button.dart';
-import '../api/api_client.dart';
-import '../api/auth_service.dart';
-import '../api/token_storage.dart';
+import '../api/core/api_client.dart';
+import '../api/core/token_storage.dart';
+import '../api/auth/auth_api.dart';
+import '../api/auth/auth_service.dart';
 import '../router/app_router.gr.dart';
 
 @RoutePage()
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _authService = AuthService(ApiClient().dio);
+  final _authApi = AuthApi();
 
   @override
   void dispose() {
@@ -30,9 +32,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _login() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('이메일과 비밀번호를 입력해주세요')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('이메일과 비밀번호를 입력해주세요')));
       return;
     }
     try {
@@ -45,15 +47,22 @@ class _LoginPageState extends State<LoginPage> {
       final refreshToken = result['refreshToken'] ?? result['refresh_token'];
       TokenStorage.accessToken = accessToken?.toString();
       TokenStorage.refreshToken = refreshToken?.toString();
-      // 입력한 이메일은 폼에서 알 수 있고, 닉네임은 JWT 에서 추출 시도
+      // 다른 계정으로 로그인하면 이전 계정의 닉네임이 남지 않도록 정리한다.
+      if (TokenStorage.email != _emailController.text) {
+        TokenStorage.nickname = null;
+      }
+      // 입력한 이메일은 폼에서 알 수 있고, 닉네임은 API 로 가져온다.
       TokenStorage.email = _emailController.text;
-      TokenStorage.updateUserFromToken();
-      print('[로그인] 저장된 email=${TokenStorage.email}, nickname=${TokenStorage.nickname}');
+      await _authApi.loadNickname(loginResponse: result);
+      print(
+        '[로그인] 저장된 email=${TokenStorage.email}, nickname=${TokenStorage.nickname}',
+      );
       if (mounted) context.router.replace(const MyHomeRoute());
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('로그인 실패: $e')),
-      );
+      if (mounted)
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('로그인 실패: $e')));
     }
   }
 
@@ -73,10 +82,16 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InputBox(InputBoxText: '이메일', controller: _emailController),
-                  InputBox(InputBoxText: '비밀번호', controller: _passwordController),
+                  InputBox(
+                    InputBoxText: '비밀번호',
+                    controller: _passwordController,
+                  ),
                   Button(
                     buttonTitle: '로그인',
-                    topPadding: 15, leftPadding: 14, rightPadding: 14, bottomPadding: 14,
+                    topPadding: 15,
+                    leftPadding: 14,
+                    rightPadding: 14,
+                    bottomPadding: 14,
                     textboxWidth: 306,
                     onPressed: _login,
                   ),

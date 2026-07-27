@@ -1,4 +1,4 @@
-import 'api_client.dart';
+import '../core/api_client.dart';
 
 class TagApi {
   final dio = ApiClient().dio;

@@ -3,5 +3,22 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        {
+            // F5 누르면 에뮬레이터가 자동으로 켜지고 앱이 실행됨
+            "name": "figma_design (Android 에뮬레이터)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "emulator-5554",
+            "preLaunchTask": "start-android-emulator"
+        },
+        {
+            "name": "figma_design (Chrome 웹)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "chrome"
+        }
+    ]
 }

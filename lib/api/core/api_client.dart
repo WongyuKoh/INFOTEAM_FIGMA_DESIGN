@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'api_config.dart';
 import 'token_storage.dart';
 
 class ApiClient {
@@ -10,9 +11,9 @@ class ApiClient {
   ApiClient._internal() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://api.bulletin.newbies.gistory.me',
-        connectTimeout: Duration(seconds: 5),
-        receiveTimeout: Duration(seconds: 5),
+        baseUrl: apiBaseUrl,
+        connectTimeout: Duration(seconds: 15),
+        receiveTimeout: Duration(seconds: 15),
         headers: {'Content-Type': 'application/json'},
       ),
     );
@@ -21,18 +22,24 @@ class ApiClient {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           final token = TokenStorage.accessToken;
-          print('[API] 요청: ${options.method} ${options.path} | 토큰: ${token != null ? "있음(${token.substring(0, token.length > 10 ? 10 : token.length)}...)" : "없음(null)"}');
+          print(
+            '[API] 요청: ${options.method} ${options.path} | 토큰: ${token != null ? "있음(${token.substring(0, token.length > 10 ? 10 : token.length)}...)" : "없음(null)"}',
+          );
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
           handler.next(options);
         },
         onResponse: (response, handler) {
-          print('[API] 응답: ${response.statusCode} ${response.requestOptions.path}');
+          print(
+            '[API] 응답: ${response.statusCode} ${response.requestOptions.path}',
+          );
           handler.next(response);
         },
         onError: (error, handler) {
-          print('[API] 에러: ${error.response?.statusCode} ${error.message}');
+          print(
+            '[API] 에러: ${error.response?.statusCode} ${error.response?.data ?? error.message}',
+          );
           handler.next(error);
         },
       ),

@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../core/api_config.dart';
+import 'board_models.dart';
+
 part 'board_service.g.dart';
 
-@RestApi(baseUrl: 'https://api.bulletin.newbies.gistory.me')
+@RestApi(baseUrl: apiBaseUrl)
 abstract class BoardService {
   factory BoardService(Dio dio, {String baseUrl}) = _BoardService;
 
   @GET('/boards')
-  Future<dynamic> getBoards();
+  Future<BoardListResponse> getBoards();
 
   @POST('/boards')
   Future<dynamic> createBoard(@Body() Map<String, dynamic> body);

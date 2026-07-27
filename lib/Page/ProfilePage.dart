@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import '../widgets/Button.dart';
 import '../widgets/Navigator.dart';
 import '../widgets/Header.dart';
-import '../api/token_storage.dart';
+import '../api/core/token_storage.dart';
 
 @RoutePage()
 class ProfilePage extends StatefulWidget {

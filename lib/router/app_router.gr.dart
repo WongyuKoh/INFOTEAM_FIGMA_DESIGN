@@ -10,6 +10,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:collection/collection.dart' as _i14;
+import 'package:figma_design/api/post/post_models.dart' as _i15;
 import 'package:figma_design/Page/BoardPostPage.dart' as _i1;
 import 'package:figma_design/Page/CreatePostPage.dart' as _i2;
 import 'package:figma_design/Page/CreateTagPage.dart' as _i3;
@@ -142,6 +144,7 @@ class CreateTagRoute extends _i12.PageRouteInfo<CreateTagRouteArgs> {
     required String boardUuid,
     required String title,
     required String body,
+    List<String> images = const [],
     List<_i12.PageRouteInfo>? children,
   }) : super(
          CreateTagRoute.name,
@@ -150,6 +153,7 @@ class CreateTagRoute extends _i12.PageRouteInfo<CreateTagRouteArgs> {
            boardUuid: boardUuid,
            title: title,
            body: body,
+           images: images,
          ),
          initialChildren: children,
        );
@@ -165,6 +169,7 @@ class CreateTagRoute extends _i12.PageRouteInfo<CreateTagRouteArgs> {
         boardUuid: args.boardUuid,
         title: args.title,
         body: args.body,
+        images: args.images,
       );
     },
   );
@@ -176,6 +181,7 @@ class CreateTagRouteArgs {
     required this.boardUuid,
     required this.title,
     required this.body,
+    this.images = const [],
   });
 
   final _i13.Key? key;
@@ -186,9 +192,11 @@ class CreateTagRouteArgs {
 
   final String body;
 
+  final List<String> images;
+
   @override
   String toString() {
-    return 'CreateTagRouteArgs{key: $key, boardUuid: $boardUuid, title: $title, body: $body}';
+    return 'CreateTagRouteArgs{key: $key, boardUuid: $boardUuid, title: $title, body: $body, images: $images}';
   }
 
   @override
@@ -198,12 +206,17 @@ class CreateTagRouteArgs {
     return key == other.key &&
         boardUuid == other.boardUuid &&
         title == other.title &&
-        body == other.body;
+        body == other.body &&
+        const _i14.ListEquality<String>().equals(images, other.images);
   }
 
   @override
   int get hashCode =>
-      key.hashCode ^ boardUuid.hashCode ^ title.hashCode ^ body.hashCode;
+      key.hashCode ^
+      boardUuid.hashCode ^
+      title.hashCode ^
+      body.hashCode ^
+      const _i14.ListEquality<String>().hash(images);
 }
 
 /// generated route for
@@ -256,18 +269,49 @@ class NewboardRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.PostPage]
-class PostRoute extends _i12.PageRouteInfo<void> {
-  const PostRoute({List<_i12.PageRouteInfo>? children})
-    : super(PostRoute.name, initialChildren: children);
+class PostRoute extends _i12.PageRouteInfo<PostRouteArgs> {
+  PostRoute({
+    _i13.Key? key,
+    required _i15.Post postContext,
+    List<_i12.PageRouteInfo>? children,
+  }) : super(
+         PostRoute.name,
+         args: PostRouteArgs(key: key, postContext: postContext),
+         initialChildren: children,
+       );
 
   static const String name = 'PostRoute';
 
   static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
-      return const _i7.PostPage();
+      final args = data.argsAs<PostRouteArgs>();
+      return _i7.PostPage(key: args.key, postContext: args.postContext);
     },
   );
+}
+
+class PostRouteArgs {
+  const PostRouteArgs({this.key, required this.postContext});
+
+  final _i13.Key? key;
+
+  final _i15.Post postContext;
+
+  @override
+  String toString() {
+    return 'PostRouteArgs{key: $key, postContext: $postContext}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! PostRouteArgs) return false;
+    return key == other.key && postContext == other.postContext;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ postContext.hashCode;
 }
 
 /// generated route for
