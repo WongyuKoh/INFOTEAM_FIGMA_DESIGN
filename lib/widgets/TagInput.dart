@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
 
 class TagInputBox extends StatefulWidget {
-
   final TextEditingController controller;
   const TagInputBox({super.key, required this.controller});
 
@@ -13,7 +12,6 @@ class TagInputBox extends StatefulWidget {
 }
 
 class _TagInputBoxState extends State<TagInputBox> {
-
   bool _hasText = false;
 
   @override
@@ -21,7 +19,7 @@ class _TagInputBoxState extends State<TagInputBox> {
     super.initState();
     widget.controller.addListener(() {
       setState(() {
-        _hasText = widget.controller.text.isNotEmpty;  // 텍스트 있으면 true
+        _hasText = widget.controller.text.isNotEmpty; // 텍스트 있으면 true
       });
     });
   }
@@ -39,13 +37,16 @@ class _TagInputBoxState extends State<TagInputBox> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
               color: _hasText ? Color(0xFFFF4500) : Color(0xFFB3B3B3),
-              width : 1.5,     // 기본 상태
+              width: 1.5, // 기본 상태
             ),
           ),
-          focusedBorder: OutlineInputBorder(  // 추가
+          focusedBorder: OutlineInputBorder(
+            // 추가
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-              color: _hasText ? Color(0xFFFF4500) : Color(0xFFB3B3B3),  // 포커스 시 주황색
+              color: _hasText
+                  ? Color(0xFFFF4500)
+                  : Color(0xFFB3B3B3), // 포커스 시 주황색
               width: 1.5,
             ),
           ),

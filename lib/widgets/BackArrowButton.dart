@@ -5,7 +5,7 @@ import '../gen/assets.gen.dart';
 
 class BackArrowButton extends StatelessWidget {
   final double opacity;
-  const BackArrowButton({super.key,required this.opacity});
+  const BackArrowButton({super.key, required this.opacity});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +14,15 @@ class BackArrowButton extends StatelessWidget {
       child: SizedBox(
         width: 24,
         height: 24,
-        child : IconButton(
+        child: IconButton(
           constraints: BoxConstraints.tightFor(width: 24, height: 24),
-          padding: EdgeInsets.fromLTRB(5.1, 5,0,0),
+          padding: EdgeInsets.fromLTRB(5.1, 5, 0, 0),
           icon: Assets.icons.left.svg(
-            width: 7.9,  // 👈 아이콘의 가로 크기
+            width: 7.9, // 👈 아이콘의 가로 크기
             height: 14, // 👈 아이콘의 세로 크기
             fit: BoxFit.contain,
           ),
-          onPressed: (){
+          onPressed: () {
             context.router.back();
             print("left 버튼 클릭");
           },

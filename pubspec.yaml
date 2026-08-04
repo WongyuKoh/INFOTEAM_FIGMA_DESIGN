@@ -44,6 +44,10 @@ dependencies:
   flutter_svg: ^2.2.4
   image_picker: ^1.1.2
 
+  flutter_bloc: ^9.1.1 # BLoC 패턴 구현을 위해
+  freezed_annotation: ^3.1.0 # Freezed 어노테이션
+  flutter_secure_storage: ^10.3.1
+
 dev_dependencies:
 
   # slang_build_runner: ^4.0.0
@@ -51,6 +55,8 @@ dev_dependencies:
   build_runner: ^2.13.1
   flutter_gen_runner: ^5.13.0+1
   auto_route_generator: ^10.5.0
+
+  freezed: ^3.2.5 # Freezed 코드 생성기 
 
   
 

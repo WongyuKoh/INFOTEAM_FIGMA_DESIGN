@@ -15,10 +15,7 @@ void main() {
   group('applyUserJson', () {
     test('최상위 nickname/email 을 저장한다', () {
       expect(
-        TokenStorage.applyUserJson({
-          'email': 'a@b.com',
-          'nickname': '홍길동',
-        }),
+        TokenStorage.applyUserJson({'email': 'a@b.com', 'nickname': '홍길동'}),
         isTrue,
       );
       expect(TokenStorage.nickname, '홍길동');
