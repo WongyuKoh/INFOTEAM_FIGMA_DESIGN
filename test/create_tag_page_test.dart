@@ -4,8 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:figma_design/Page/CreateTagPage.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:figma_design/api/core/api_client.dart';
+import 'package:figma_design/repository/post_repository.dart';
+import 'package:figma_design/repository/tag_repository.dart';
+import 'package:figma_design/router/app_router.dart';
+import 'package:figma_design/router/app_router.gr.dart';
 
 /// 실제 네트워크로 나가지 않고 요청만 기록하는 어댑터.
 /// 앱 코드를 그대로 두고 무엇이 전송되는지 확인하기 위한 것이다.
@@ -32,6 +38,31 @@ class _CapturingAdapter implements HttpClientAdapter {
   void close({bool force = false}) {}
 }
 
+/// 태그 화면을 라우터·Provider 와 함께 띄운다.
+/// 리팩터링 후 CreateTagPage 는 AutoRouteWrapper 로 Bloc 을 주입받으므로
+/// 라우터를 거쳐야 wrappedRoute 가 적용된다.
+Widget _app({List<String> images = const []}) {
+  final router = AppRouter();
+  return MultiRepositoryProvider(
+    providers: [
+      RepositoryProvider(create: (_) => PostRepository()),
+      RepositoryProvider(create: (_) => TagRepository()),
+    ],
+    child: MaterialApp.router(
+      routerConfig: router.config(
+        deepLinkBuilder: (_) => DeepLink([
+          CreateTagRoute(
+            boardUuid: 'board-1',
+            title: '제목',
+            body: '본문',
+            images: images,
+          ),
+        ]),
+      ),
+    ),
+  );
+}
+
 void main() {
   late _CapturingAdapter adapter;
 
@@ -42,11 +73,8 @@ void main() {
   });
 
   testWidgets('추가한 태그가 /tag 등록과 /posts 본문에 실려 나간다', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CreateTagPage(boardUuid: 'board-1', title: '제목', body: '본문'),
-      ),
-    );
+    await tester.pumpWidget(_app());
+    await tester.pumpAndSettle();
 
     // 태그 두 개를 입력하고 '추가' 를 누른다.
     await tester.enterText(find.byType(TextField), '맛집');
@@ -95,16 +123,8 @@ void main() {
   });
 
   testWidgets('글쓰기에서 고른 사진이 글 생성 본문에 실려 나간다', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CreateTagPage(
-          boardUuid: 'board-1',
-          title: '제목',
-          body: '본문',
-          images: ['base64-1', 'base64-2'],
-        ),
-      ),
-    );
+    await tester.pumpWidget(_app(images: const ['base64-1', 'base64-2']));
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('완료'));
     await tester.pumpAndSettle();
@@ -117,11 +137,8 @@ void main() {
   });
 
   testWidgets('완료를 연타해도 글은 한 번만 생성된다', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CreateTagPage(boardUuid: 'board-1', title: '제목', body: '본문'),
-      ),
-    );
+    await tester.pumpWidget(_app());
+    await tester.pumpAndSettle();
 
     await tester.enterText(find.byType(TextField), '맛집');
     await tester.pump();
@@ -140,11 +157,8 @@ void main() {
   });
 
   testWidgets('태그를 추가하지 않으면 /tag 요청 없이 빈 배열이 전송된다', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CreateTagPage(boardUuid: 'board-1', title: '제목', body: '본문'),
-      ),
-    );
+    await tester.pumpWidget(_app());
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('완료'));
     await tester.pumpAndSettle();

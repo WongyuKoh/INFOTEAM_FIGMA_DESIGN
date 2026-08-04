@@ -7,9 +7,7 @@ import 'Search.dart';
 import 'Edit.dart';
 import 'BackArrowButton.dart';
 
-
 class ViewGridHeader extends StatelessWidget {
-
   final VoidCallback? onBoardCreated;
   const ViewGridHeader({super.key, this.onBoardCreated});
 
@@ -20,32 +18,31 @@ class ViewGridHeader extends StatelessWidget {
       child: Container(
         width: 402,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Row(
           spacing: 8,
           children: [
             Container(
               width: 330,
               height: 32,
-              margin: EdgeInsets.fromLTRB(0,4,0,4),
+              margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Text(
                 '나의 게시판 앱',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   height: 1.47,
-
                 ),
               ),
             ),
             SizedBox(
               width: 24,
               height: 24,
-              child : IconButton(
+              child: IconButton(
                 constraints: BoxConstraints.tightFor(width: 24, height: 24),
                 padding: EdgeInsets.zero,
                 icon: Assets.icons.newBoard.svg(
-                  width: 24,  // 👈 아이콘의 가로 크기
+                  width: 24, // 👈 아이콘의 가로 크기
                   height: 24, // 👈 아이콘의 세로 크기
                   fit: BoxFit.contain,
                 ),
@@ -64,7 +61,6 @@ class ViewGridHeader extends StatelessWidget {
 }
 
 class HomeHeader extends StatelessWidget {
-
   final VoidCallback? onWrite;
   const HomeHeader({super.key, this.onWrite});
 
@@ -75,21 +71,20 @@ class HomeHeader extends StatelessWidget {
       child: Container(
         width: 402,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Row(
           spacing: 8,
           children: [
             Container(
               width: 290,
               height: 32,
-              margin: EdgeInsets.fromLTRB(0,4,0,4),
+              margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Text(
                 '나의 게시판 앱',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   height: 1.47,
-
                 ),
               ),
             ),
@@ -99,15 +94,12 @@ class HomeHeader extends StatelessWidget {
               child: Row(
                 children: [
                   Search(),
-                  SizedBox(
-                    width: 16,
-                    height: 24,
-                  ),
+                  SizedBox(width: 16, height: 24),
                   Edit(onPressed: onWrite),
                 ],
                 //24,16,24
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -116,10 +108,9 @@ class HomeHeader extends StatelessWidget {
 }
 
 class SigninupHeader extends StatelessWidget {
-
   final inorup;
 
-  const SigninupHeader({super.key,required this.inorup});
+  const SigninupHeader({super.key, required this.inorup});
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +119,7 @@ class SigninupHeader extends StatelessWidget {
       child: Container(
         width: 402,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Stack(
           children: [
             Row(
@@ -136,13 +127,13 @@ class SigninupHeader extends StatelessWidget {
                 Container(
                   width: 298,
                   height: 32,
-                  margin: EdgeInsets.fromLTRB(0,4,0,4),
+                  margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
                   child: Row(
                     children: [
-                      BackArrowButton(opacity: 0,),
-                      Expanded(child: SizedBox())
+                      BackArrowButton(opacity: 0),
+                      Expanded(child: SizedBox()),
                     ],
-                  )
+                  ),
                 ),
                 Container(
                   width: 64,
@@ -150,15 +141,12 @@ class SigninupHeader extends StatelessWidget {
                   child: Row(
                     children: [
                       Search(),
-                      SizedBox(
-                        width: 16,
-                        height: 24,
-                      ),
+                      SizedBox(width: 16, height: 24),
                       Edit(),
                     ],
                     //24,16,24
                   ),
-                )
+                ),
               ],
             ),
             Align(
@@ -166,9 +154,9 @@ class SigninupHeader extends StatelessWidget {
               child: Container(
                 width: 258,
                 height: 32,
-                
+
                 child: Container(
-                  width:77,
+                  width: 77,
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
@@ -177,12 +165,11 @@ class SigninupHeader extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.47,
-                      
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -191,7 +178,6 @@ class SigninupHeader extends StatelessWidget {
 }
 
 class PostHeader extends StatelessWidget {
-
   final postName;
   final VoidCallback? onEdit;
   const PostHeader({super.key, required this.postName, this.onEdit});
@@ -203,7 +189,7 @@ class PostHeader extends StatelessWidget {
       child: Container(
         width: 402,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Stack(
           children: [
             Row(
@@ -211,13 +197,13 @@ class PostHeader extends StatelessWidget {
                 Container(
                   width: 298,
                   height: 32,
-                  margin: EdgeInsets.fromLTRB(0,4,0,4),
+                  margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
                   child: Row(
                     children: [
-                      BackArrowButton(opacity: 1,),
-                      Expanded(child: SizedBox())
+                      BackArrowButton(opacity: 1),
+                      Expanded(child: SizedBox()),
                     ],
-                  )
+                  ),
                 ),
                 Container(
                   width: 64,
@@ -225,14 +211,11 @@ class PostHeader extends StatelessWidget {
                   child: Row(
                     children: [
                       Search(),
-                      SizedBox(
-                        width: 16,
-                        height: 24,
-                      ),
+                      SizedBox(width: 16, height: 24),
                       Edit(onPressed: onEdit),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             Align(
@@ -241,7 +224,7 @@ class PostHeader extends StatelessWidget {
                 width: 258,
                 height: 32,
                 child: Container(
-                  width:77,
+                  width: 77,
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
@@ -250,12 +233,11 @@ class PostHeader extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.47,
-                      
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -264,7 +246,6 @@ class PostHeader extends StatelessWidget {
 }
 
 class NewboardCreateHeader extends StatelessWidget {
-
   final VoidCallback? onComplete;
   const NewboardCreateHeader({super.key, this.onComplete});
 
@@ -275,41 +256,41 @@ class NewboardCreateHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
-              child : Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
                   Expanded(
                     child: Container(
-                    margin: EdgeInsets.fromLTRB(0,4,0,4),
-                    child: Row(
-                      children: [
-                        BackArrowButton(opacity: 1,),
-                        Expanded(child: SizedBox())
-                      ],
-                    )
-                  )),
+                      margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+                      child: Row(
+                        children: [
+                          BackArrowButton(opacity: 1),
+                          Expanded(child: SizedBox()),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: 35,
                     height: 29,
                     child: GestureDetector(
                       onTap: onComplete,
-                      child : Text(
+                      child: Text(
                         '완료',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           height: 1.47,
-
                         ),
                       ),
-                    )
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -319,7 +300,7 @@ class NewboardCreateHeader extends StatelessWidget {
                 width: 258,
 
                 child: Container(
-                  width:77,
+                  width: 77,
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
@@ -328,12 +309,11 @@ class NewboardCreateHeader extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.47,
-                      
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -342,18 +322,14 @@ class NewboardCreateHeader extends StatelessWidget {
 }
 
 class SearchHeader extends StatefulWidget {
-
   final TextEditingController controller;
-  const SearchHeader({super.key,required this.controller});
+  const SearchHeader({super.key, required this.controller});
 
   @override
   State<SearchHeader> createState() => _SearchHeaderState();
 }
 
 class _SearchHeaderState extends State<SearchHeader> {
-  
-
-
   bool _hasText = false;
 
   @override
@@ -361,11 +337,10 @@ class _SearchHeaderState extends State<SearchHeader> {
     super.initState();
     widget.controller.addListener(() {
       setState(() {
-        _hasText = widget.controller.text.isNotEmpty;  // 텍스트 있으면 true
+        _hasText = widget.controller.text.isNotEmpty; // 텍스트 있으면 true
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -375,7 +350,7 @@ class _SearchHeaderState extends State<SearchHeader> {
         child: Container(
           width: 402,
           height: 61,
-          padding: EdgeInsets.fromLTRB(10,10,10,10),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -386,16 +361,16 @@ class _SearchHeaderState extends State<SearchHeader> {
               children: [
                 Container(
                   width: 344,
-                  padding: EdgeInsets.fromLTRB(10,10,10,10),
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: Row(
                     spacing: 5,
                     children: [
                       SizedBox(
                         width: 20,
                         height: 20,
-                        child :Assets.icons.search.svg(
+                        child: Assets.icons.search.svg(
                           color: Color(0xFF6E6E73),
-                          width: 18,  // 👈 아이콘의 가로 크기
+                          width: 18, // 👈 아이콘의 가로 크기
                           height: 18, // 👈 아이콘의 세로 크기
                           fit: BoxFit.contain,
                         ),
@@ -403,22 +378,22 @@ class _SearchHeaderState extends State<SearchHeader> {
                       Expanded(
                         child: TextField(
                           controller: widget.controller,
-                          
+
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color : Color(0xFF6E6E73),
+                            color: Color(0xFF6E6E73),
                           ),
                           decoration: InputDecoration(
                             hintText: '공지 검색',
                             border: InputBorder.none,
                             hintStyle: TextStyle(
-                              fontSize: 16,       // 힌트 텍스트 크기
+                              fontSize: 16, // 힌트 텍스트 크기
                               color: Color(0xFF6E6E73),
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -426,10 +401,10 @@ class _SearchHeaderState extends State<SearchHeader> {
                   width: 38,
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       context.router.back();
                     },
-                    child : Text(
+                    child: Text(
                       '취소',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -437,18 +412,17 @@ class _SearchHeaderState extends State<SearchHeader> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ),
-      )
+      ),
     );
   }
 }
 
 class NewpostCreateHeader extends StatelessWidget {
-
   final VoidCallback? onNext;
   const NewpostCreateHeader({super.key, this.onNext});
 
@@ -459,41 +433,41 @@ class NewpostCreateHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
-              child : Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
                   Expanded(
                     child: Container(
-                    margin: EdgeInsets.fromLTRB(0,4,0,4),
-                    child: Row(
-                      children: [
-                        BackArrowButton(opacity: 1,),
-                        Expanded(child: SizedBox())
-                      ],
-                    )
-                  )),
+                      margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+                      child: Row(
+                        children: [
+                          BackArrowButton(opacity: 1),
+                          Expanded(child: SizedBox()),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: 35,
                     height: 29,
                     child: GestureDetector(
                       onTap: onNext,
-                      child : Text(
+                      child: Text(
                         '다음',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           height: 1.47,
-                          
                         ),
                       ),
-                    )
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -501,9 +475,9 @@ class NewpostCreateHeader extends StatelessWidget {
               alignment: Alignment.center,
               child: Container(
                 width: 258,
-                
+
                 child: Container(
-                  width:77,
+                  width: 77,
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
@@ -512,12 +486,11 @@ class NewpostCreateHeader extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.47,
-                      
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -526,7 +499,6 @@ class NewpostCreateHeader extends StatelessWidget {
 }
 
 class NewtagCreateHeader extends StatelessWidget {
-
   final VoidCallback? onComplete;
   const NewtagCreateHeader({super.key, this.onComplete});
 
@@ -537,31 +509,32 @@ class NewtagCreateHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 56,
-        padding: EdgeInsets.fromLTRB(20,8,20,8),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
-              child : Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // 폭을 고정하면 화면이 좁을 때 오른쪽 버튼이 잘리므로 남는 공간을 차지하게 한다.
                   Expanded(
                     child: Container(
-                    margin: EdgeInsets.fromLTRB(0,4,0,4),
-                    child: Row(
-                      children: [
-                        BackArrowButton(opacity: 1,),
-                        Expanded(child: SizedBox())
-                      ],
-                    )
-                  )),
+                      margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+                      child: Row(
+                        children: [
+                          BackArrowButton(opacity: 1),
+                          Expanded(child: SizedBox()),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: 35,
                     height: 29,
                     child: GestureDetector(
                       onTap: onComplete,
-                      child : Text(
+                      child: Text(
                         '완료',
                         style: TextStyle(
                           fontSize: 18,
@@ -569,8 +542,8 @@ class NewtagCreateHeader extends StatelessWidget {
                           height: 1.47,
                         ),
                       ),
-                    )
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -579,7 +552,7 @@ class NewtagCreateHeader extends StatelessWidget {
               child: Container(
                 width: 258,
                 child: Container(
-                  width:77,
+                  width: 77,
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
@@ -588,12 +561,11 @@ class NewtagCreateHeader extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.47,
-                      
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

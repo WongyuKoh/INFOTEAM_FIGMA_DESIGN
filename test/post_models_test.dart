@@ -41,7 +41,10 @@ void main() {
             'createdAt': '2024-09-09T15:59:28.489+00:00',
             'createdBy': {'id': '6cae63b1', 'email': 'yejin@naver.com'},
             'images': [
-              {'image': 'UklGRooMAABXRUJQVlA4IH4MAADQRACdASrIAMgA', 'id': 'b53a'},
+              {
+                'image': 'UklGRooMAABXRUJQVlA4IH4MAADQRACdASrIAMgA',
+                'id': 'b53a',
+              },
             ],
           },
         ],

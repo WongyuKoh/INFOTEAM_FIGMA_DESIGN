@@ -10,7 +10,9 @@ const String kTinyPng =
 void main() {
   testWidgets('사진이 없으면 추가 박스만 보인다', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(home: Scaffold(body: PhotoRow(onAdd: () {}))),
+      MaterialApp(
+        home: Scaffold(body: PhotoRow(onAdd: () {})),
+      ),
     );
 
     expect(find.byType(PhotoAddBox), findsOneWidget);
@@ -34,10 +36,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: PhotoRow(
-            photos: [kTinyPng, kTinyPng],
-            onRemove: removed.add,
-          ),
+          body: PhotoRow(photos: [kTinyPng, kTinyPng], onRemove: removed.add),
         ),
       ),
     );

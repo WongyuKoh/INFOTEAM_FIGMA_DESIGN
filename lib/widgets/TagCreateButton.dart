@@ -16,7 +16,7 @@ class _TagCreateButtonState extends State<TagCreateButton> {
   @override
   Widget build(BuildContext context) {
     Widget Style;
-    switch(widget.tagTextEmpty){
+    switch (widget.tagTextEmpty) {
       case true:
         Style = Container(
           height: double.infinity,
@@ -62,8 +62,6 @@ class _TagCreateButtonState extends State<TagCreateButton> {
 
       default:
         throw UnimplementedError('no widget for  islogin');
-
-        
     }
     return Style;
   }

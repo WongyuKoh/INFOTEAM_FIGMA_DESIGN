@@ -4,17 +4,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
 
 class InputBox extends StatefulWidget {
-
   final String InputBoxText;
   final TextEditingController controller;
-  const InputBox({super.key, required this.InputBoxText,required this.controller});
+  const InputBox({
+    super.key,
+    required this.InputBoxText,
+    required this.controller,
+  });
 
   @override
   State<InputBox> createState() => _InputBoxState();
 }
 
 class _InputBoxState extends State<InputBox> {
-
   bool _hasText = false;
 
   @override
@@ -22,7 +24,7 @@ class _InputBoxState extends State<InputBox> {
     super.initState();
     widget.controller.addListener(() {
       setState(() {
-        _hasText = widget.controller.text.isNotEmpty;  // 텍스트 있으면 true
+        _hasText = widget.controller.text.isNotEmpty; // 텍스트 있으면 true
       });
     });
   }
@@ -40,10 +42,7 @@ class _InputBoxState extends State<InputBox> {
             height: 19,
             child: Text(
               widget.InputBoxText,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
           ),
           SizedBox(
@@ -56,13 +55,16 @@ class _InputBoxState extends State<InputBox> {
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(
                     color: _hasText ? Color(0xFFFF4500) : Color(0xFFB3B3B3),
-                    width : 1.5,     // 기본 상태
+                    width: 1.5, // 기본 상태
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(  // 추가
+                focusedBorder: OutlineInputBorder(
+                  // 추가
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(
-                    color: _hasText ? Color(0xFFFF4500) : Color(0xFFB3B3B3),  // 포커스 시 주황색
+                    color: _hasText
+                        ? Color(0xFFFF4500)
+                        : Color(0xFFB3B3B3), // 포커스 시 주황색
                     width: 1.5,
                   ),
                 ),

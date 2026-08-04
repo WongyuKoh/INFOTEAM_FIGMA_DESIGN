@@ -12,9 +12,9 @@ class PostListResponse {
 
   factory PostListResponse.fromJson(Map<String, dynamic> json) {
     // 목록을 감싸는 키가 엔드포인트마다 다를 수 있어 알려진 후보를 모두 확인한다.
-    final items = _asMapList(json['list'] ?? json['posts'] ?? json['data'])
-        .map(Post.fromJson)
-        .toList(growable: false);
+    final items = _asMapList(
+      json['list'] ?? json['posts'] ?? json['data'],
+    ).map(Post.fromJson).toList(growable: false);
     return PostListResponse(
       count: _asInt(json['count']) ?? items.length,
       list: items,
