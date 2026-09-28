@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'bloc/auth_bloc.dart';
+import 'data/core/locale_storage.dart';
+import 'di/injection.dart';
 import 'gen/fonts.gen.dart';
-import 'repository/auth_repository.dart';
-import 'repository/board_repository.dart';
-import 'repository/post_repository.dart';
-import 'repository/tag_repository.dart';
+import 'i18n/strings.g.dart';
+import 'presentation/auth/auth_bloc.dart';
+import 'presentation/locale/locale_bloc.dart';
 import 'router/app_router.dart';
 
-void main() {
+Future<void> main() async {
+  // 플랫폼 채널(SecureStorage 등) 준비 후 DI 그래프를 초기화한다.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // injectable 이 생성한 등록 코드를 실행한다. 이 한 줄이 예전의
+  // MultiRepositoryProvider + 수동 registerXxx 를 모두 대신한다.
+  await configureDependencies();
+
+  // 저장된 언어 설정을 복원한다. (심화: 언어 유지) 없으면 base_locale(ko).
+  final savedLocale = await LocaleStorage.load();
+  if (savedLocale != null) await LocaleSettings.setLocale(savedLocale);
+
   runApp(const AppRoot());
 }
 
-/// Repository 들을 앱 최상단(= 라우터보다 위)에 한 번만 만들어 공급한다.
+/// Repository 는 더 이상 위젯 트리로 공급하지 않는다. getIt 이 전역으로 갖고 있다.
+/// AuthBloc 은 getIt 의 LazySingleton, LocaleBloc 은 앱 전역 언어 상태다.
 ///
-/// 라우터보다 위에 있어야 push 로 열리는 모든 화면에서 context.read 로 꺼낼 수 있다.
-/// (Navigator 가 띄우는 화면은 "이전 화면의 자식"이 아니라 Navigator 의 자식이다)
+/// [TranslationProvider] 로 감싸야 화면들이 `context.t` 로 번역을 읽고,
+/// 언어가 바뀌면 자동으로 다시 그려진다.
 class AppRoot extends StatelessWidget {
   const AppRoot({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(create: (_) => AuthRepository()),
-        RepositoryProvider(create: (_) => PostRepository()),
-        RepositoryProvider(create: (_) => BoardRepository()),
-        RepositoryProvider(create: (_) => TagRepository()),
-      ],
-      // 인증 상태는 앱 전체가 공유하므로 라우터보다 위에 둔다.
+    return TranslationProvider(
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (ctx) =>
-                AuthBloc(ctx.read<AuthRepository>())
-                  ..add(const AuthEvent.started()),
-          ),
+          BlocProvider.value(value: getIt<AuthBloc>()..start()),
+          BlocProvider(create: (_) => LocaleBloc()),
         ],
         child: MyApp(),
       ),
@@ -45,20 +48,33 @@ class AppRoot extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  ///const MyApp({super.key});
+  MyApp({super.key});
 
   final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _appRouter.config(),
-      title: 'Namer App',
-      // 스크롤 끝에서 내용이 늘어나는 Android stretch 효과 제거
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        overscroll: false,
-      ),
-      theme: ThemeData(useMaterial3: true, fontFamily: FontFamily.pretendard),
+    // LocaleBloc 의 상태(AppLocale)가 바뀌면 MaterialApp 전체를 다시 그린다.
+    // → 전역 t 가 새 언어를 가리키므로 모든 화면의 문자열이 갱신된다.
+    return BlocBuilder<LocaleBloc, AppLocale>(
+      builder: (context, locale) {
+        return MaterialApp.router(
+          routerConfig: _appRouter.config(),
+          title: context.t.app.title,
+          locale: locale.flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          // Material/Cupertino/Widgets 위젯의 ko/en 로케일 지원
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          // 스크롤 끝에서 내용이 늘어나는 Android stretch 효과 제거
+          scrollBehavior: const MaterialScrollBehavior().copyWith(
+            overscroll: false,
+          ),
+          theme: ThemeData(
+            useMaterial3: true,
+            fontFamily: FontFamily.pretendard,
+          ),
+        );
+      },
     );
   }
 }

@@ -38,6 +38,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Material/Cupertino 위젯의 ko/en 로케일 지원(GlobalMaterialLocalizations)
+  flutter_localizations:
+    sdk: flutter
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -47,11 +51,19 @@ dependencies:
   flutter_bloc: ^9.1.1 # BLoC 패턴 구현을 위해
   freezed_annotation: ^3.1.0 # Freezed 어노테이션
   flutter_secure_storage: ^10.3.1
+  get_it: ^8.0.3 # 의존성 주입(Service Locator)
+  injectable: ^2.5.0 # get_it 등록 코드를 어노테이션으로 자동 생성
+  slang: ^4.4.1 # 다국어(i18n) — 타입 세이프 번역
+  slang_flutter: ^4.4.0 # slang 의 Flutter 연동(TranslationProvider 등)
+  webview_flutter: ^4.10.0 # 네이티브: 인앱 웹뷰
+  sensors_plus: ^6.1.0 # 네이티브: 모션 센서(가속도계)
 
 dev_dependencies:
 
   # slang_build_runner: ^4.0.0
   retrofit_generator: ^10.2.5
+  injectable_generator: ^2.6.2 # injectable 코드 생성기
+  slang_build_runner: ^4.4.1 # slang 번역 코드 생성기
   build_runner: ^2.13.1
   flutter_gen_runner: ^5.13.0+1
   auto_route_generator: ^10.5.0

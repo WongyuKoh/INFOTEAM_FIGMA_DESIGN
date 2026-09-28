@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "나의 게시판 앱"
+  },
+  "common": {
+    "cancel": "취소",
+    "complete": "완료",
+    "next": "다음",
+    "add": "추가",
+    "retry": "다시 시도"
+  },
+  "nav": {
+    "home": "홈",
+    "dashboard": "대시보드",
+    "profile": "프로필"
+  },
+  "auth": {
+    "login": "로그인",
+    "loginLoading": "로그인 중...",
+    "signup": "회원가입",
+    "signupLoading": "등록 중...",
+    "email": "이메일",
+    "password": "비밀번호",
+    "nickname": "닉네임",
+    "noAccount": "계정이 없으신가요? 회원가입",
+    "emptyFields": "모든 항목을 입력해주세요",
+    "loginEmptyFields": "이메일과 비밀번호를 입력해주세요",
+    "loginFailure": "로그인 실패: $error",
+    "signupFailure": "회원가입 실패: $error",
+    "userNotFound": "사용자를 찾을 수 없음",
+    "emailExists": "이미 존재하는 이메일"
+  },
+  "home": {
+    "searchHint": "공지 검색",
+    "empty": "게시글이 없습니다",
+    "loadFailure": "게시글을 불러오지 못했습니다: $error",
+    "writeSheetTitle": "어떤 게시판에 글을 쓸까요?",
+    "createBoardFirst": "먼저 게시판을 만들어주세요",
+    "shakeRefreshed": "흔들어서 새로고침했어요"
+  },
+  "board": {
+    "create": "게시판 만들기",
+    "name": "게시판 이름",
+    "nameRequired": "게시판 이름을 입력해주세요",
+    "empty": "게시판이 없습니다 (당겨서 새로고침)",
+    "loadFailure": "게시판을 불러오지 못했습니다: $error",
+    "createFailure": "게시판 생성 실패: $error"
+  },
+  "boardPost": {
+    "empty": "게시글이 없습니다. (당겨서 새로고침)",
+    "loadFailure": "게시글을 불러오지 못했습니다 : $error"
+  },
+  "post": {
+    "create": "게시글 작성",
+    "titleLabel": "제목",
+    "titleHint": "제목 입력",
+    "bodyHint": "내용을 입력해주세요",
+    "photoAdd": "사진 추가",
+    "capture": "촬영",
+    "registered": "게시글이 등록되었습니다",
+    "titleRequired": "제목을 입력해주세요",
+    "createFailure": "게시글 등록 실패: $error",
+    "photoLoadFailure": "사진을 불러오지 못했습니다: $error"
+  },
+  "tag": {
+    "add": "태그 추가",
+    "inputHint": "태그 입력"
+  },
+  "search": {
+    "hint": "검색 키워드를 입력해보세요",
+    "noResults": "검색 결과가 없습니다",
+    "failure": "검색에 실패했습니다: $error",
+    "resultCount(plural)": {
+      "one": "검색 결과 $n개",
+      "other": "검색 결과 $n개"
+    }
+  },
+  "profile": {
+    "title": "프로필",
+    "logout": "로그아웃",
+    "welcome": "$nickname 님, 환영합니다!",
+    "language": "언어",
+    "korean": "한국어",
+    "english": "English",
+    "help": "도움말 (인앱 웹뷰)"
+  },
+  "webview": {
+    "title": "도움말"
+  }
+}

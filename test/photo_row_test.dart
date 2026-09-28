@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:figma_design/i18n/strings.g.dart';
 import 'package:figma_design/widgets/PhotoAdd.dart';
 
 /// 1x1 짜리 투명 PNG. 실제 이미지 디코딩까지 태우기 위한 최소 샘플.
@@ -10,8 +11,10 @@ const String kTinyPng =
 void main() {
   testWidgets('사진이 없으면 추가 박스만 보인다', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(body: PhotoRow(onAdd: () {})),
+      TranslationProvider(
+        child: MaterialApp(
+          home: Scaffold(body: PhotoRow(onAdd: () {})),
+        ),
       ),
     );
 
@@ -21,8 +24,10 @@ void main() {
 
   testWidgets('고른 사진 수만큼 썸네일이 붙는다', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(body: PhotoRow(photos: [kTinyPng, kTinyPng])),
+      TranslationProvider(
+        child: MaterialApp(
+          home: Scaffold(body: PhotoRow(photos: [kTinyPng, kTinyPng])),
+        ),
       ),
     );
     await tester.pump();
@@ -34,9 +39,11 @@ void main() {
   testWidgets('썸네일의 X 를 누르면 해당 인덱스로 삭제가 요청된다', (tester) async {
     final removed = <int>[];
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: PhotoRow(photos: [kTinyPng, kTinyPng], onRemove: removed.add),
+      TranslationProvider(
+        child: MaterialApp(
+          home: Scaffold(
+            body: PhotoRow(photos: [kTinyPng, kTinyPng], onRemove: removed.add),
+          ),
         ),
       ),
     );

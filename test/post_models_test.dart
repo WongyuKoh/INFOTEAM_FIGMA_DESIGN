@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:figma_design/api/post/post_models.dart';
+import 'package:figma_design/domain/entity/post.dart';
 
 void main() {
   group('PostListResponse.fromJson', () {

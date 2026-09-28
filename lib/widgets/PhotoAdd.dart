@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:figma_design/i18n/strings.g.dart';
 
 /// 글쓰기 화면 하단의 사진 영역. (Figma Write - Frame 4125)
-/// 좌우 10 안쪽 여백에 '사진 추가' 박스와 선택한 사진들을 10 간격으로 늘어놓는다.
+/// 좌우 10 안쪽 여백에 context.t.post.photoAdd 박스와 선택한 사진들을 10 간격으로 늘어놓는다.
 class PhotoRow extends StatelessWidget {
   final VoidCallback? onAdd;
 
@@ -29,7 +30,7 @@ class PhotoRow extends StatelessWidget {
         itemCount: photos.length + 1,
         separatorBuilder: (_, _) => SizedBox(width: 10),
         itemBuilder: (context, index) {
-          // 디자인상 고른 사진들이 먼저 오고 '사진 추가' 박스가 마지막에 온다.
+          // 디자인상 고른 사진들이 먼저 오고 context.t.post.photoAdd 박스가 마지막에 온다.
           if (index == photos.length) return PhotoAddBox(onTap: onAdd);
           return PhotoItem(
             base64Image: photos[index],
@@ -103,7 +104,7 @@ Uint8List? decodeBase64Image(String value) {
   }
 }
 
-/// '사진 추가' 점선 박스. (Figma Write - Frame 4011)
+/// context.t.post.photoAdd 점선 박스. (Figma Write - Frame 4011)
 class PhotoAddBox extends StatelessWidget {
   static const double boxSize = 140;
 
@@ -130,7 +131,7 @@ class PhotoAddBox extends StatelessWidget {
                 color: Color(0xFF6E6E73),
               ),
               Text(
-                '사진 추가',
+                context.t.post.photoAdd,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

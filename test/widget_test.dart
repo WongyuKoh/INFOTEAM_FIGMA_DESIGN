@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:figma_design/di/injection.dart';
 import 'package:figma_design/main.dart';
 
 /// flutter_secure_storage 의 플랫폼 채널.
@@ -15,7 +16,10 @@ const _secureStorageChannel = MethodChannel(
 );
 
 void main() {
-  setUp(() {
+  setUp(() async {
+    // AppRoot 가 getIt<AuthBloc>() 을 쓰므로 DI 그래프를 먼저 등록한다.
+    await getIt.reset();
+    await configureDependencies();
     // ⚠️ testWidgets 는 가짜 시간(FakeAsync) 위에서 돌아간다.
     //    실제 플랫폼 채널 응답은 이 가짜 시간에 도착하지 않아서,
     //    모킹하지 않으면 TokenStorage.load() 의 Future 가 영원히 완료되지 않고
@@ -31,7 +35,8 @@ void main() {
         });
   });
 
-  tearDown(() {
+  tearDown(() async {
+    await getIt.reset();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(_secureStorageChannel, null);
   });

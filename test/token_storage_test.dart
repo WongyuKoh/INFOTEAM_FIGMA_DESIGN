@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:figma_design/api/core/token_storage.dart';
+import 'package:figma_design/data/core/token_storage.dart';
 
 String _fakeJwt(Map<String, dynamic> payload) {
   String encode(Map<String, dynamic> part) =>
