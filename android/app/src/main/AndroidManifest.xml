@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 인앱 웹뷰(webview_flutter)가 웹 콘텐츠를 불러오기 위해 필요 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 참고: 카메라는 image_picker 가 시스템 카메라 인텐트로 촬영하므로
+         별도 CAMERA 권한 선언이 필요 없다(선언 시 런타임 권한 요청이 추가로 필요). -->
     <application
         android:label="figma_design"
         android:name="${applicationName}"

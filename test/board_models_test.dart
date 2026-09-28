@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:figma_design/api/board/board_models.dart';
+import 'package:figma_design/domain/entity/board.dart';
 
 void main() {
   group('BoardListResponse.fromJson', () {

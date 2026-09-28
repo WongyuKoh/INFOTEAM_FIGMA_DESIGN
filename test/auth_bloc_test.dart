@@ -9,14 +9,27 @@
 
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:figma_design/api/core/token_storage.dart';
-import 'package:figma_design/bloc/auth_bloc.dart';
-import 'package:figma_design/repository/auth_repository.dart';
+import 'package:figma_design/data/core/token_storage.dart';
+import 'package:figma_design/data/repository/auth_repository_impl.dart';
+import 'package:figma_design/data/service/auth_api.dart';
+import 'package:figma_design/data/service/auth_service.dart';
+import 'package:figma_design/domain/usecase/get_auth_status.dart';
+import 'package:figma_design/domain/usecase/logout.dart';
+import 'package:figma_design/domain/usecase/restore_session.dart';
+import 'package:figma_design/presentation/auth/auth_bloc.dart';
 
 const _channel = MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+
+/// AuthBloc 을 실제 계층(RepositoryImpl → UseCase)으로 조립한다.
+/// started/logout 경로는 TokenStorage 만 건드리므로 Service/Api 는 호출되지 않는다.
+AuthBloc _buildAuthBloc() {
+  final repo = AuthRepositoryImpl(AuthService(Dio()), AuthApi());
+  return AuthBloc(RestoreSession(repo), GetAuthStatus(repo), Logout(repo));
+}
 
 /// 디스크 대신 메모리에 저장하는 가짜 보안 저장소.
 /// 앱을 껐다 켜는 상황 = 메모리 캐시만 비우고 이 Map 은 유지하는 것.
@@ -65,7 +78,7 @@ void main() {
   });
 
   test('토큰이 없으면 unauthenticated 로 시작한다', () async {
-    final bloc = AuthBloc(AuthRepository());
+    final bloc = _buildAuthBloc();
     bloc.add(const AuthEvent.started());
 
     final state = await bloc.stream.first;
@@ -90,7 +103,7 @@ void main() {
     expect(TokenStorage.isLoggedIn, isFalse);
 
     // ③ 앱 재시작 — AuthBloc 이 저장소에서 복원한다
-    final bloc = AuthBloc(AuthRepository());
+    final bloc = _buildAuthBloc();
     bloc.add(const AuthEvent.started());
 
     final state = await bloc.stream.first;
@@ -111,7 +124,7 @@ void main() {
     TokenStorage.accessToken = null;
     TokenStorage.refreshToken = null;
 
-    final bloc = AuthBloc(AuthRepository());
+    final bloc = _buildAuthBloc();
     bloc.add(const AuthEvent.started());
 
     final state = await bloc.stream.first;
@@ -129,7 +142,7 @@ void main() {
     await TokenStorage.persist();
     expect(fakeDisk, isNotEmpty);
 
-    final bloc = AuthBloc(AuthRepository());
+    final bloc = _buildAuthBloc();
     bloc.add(const AuthEvent.started());
     await bloc.stream.firstWhere((s) => s is! AuthUnknown);
 

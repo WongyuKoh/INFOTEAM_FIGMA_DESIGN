@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:figma_design/Page/create_tag/CreateTagPage.dart';
-import 'package:figma_design/repository/post_repository.dart';
-import 'package:figma_design/repository/tag_repository.dart';
+import 'package:figma_design/i18n/strings.g.dart';
+import 'package:figma_design/di/injection.dart';
+import 'package:figma_design/presentation/create_tag/CreateTagPage.dart';
 import 'package:figma_design/widgets/PhotoAdd.dart';
 import 'package:figma_design/router/app_router.dart';
 import 'package:figma_design/router/app_router.gr.dart';
@@ -39,23 +37,22 @@ class _FakeImagePicker extends ImagePickerPlatform {
 /// 글쓰기 화면을 라우터와 함께 띄운다. (다음 버튼 이동까지 확인하기 위함)
 Widget _app() {
   final router = AppRouter();
-  // 각 화면의 Bloc 이 Repository 를 context 에서 꺼내므로 main.dart 와 같은
-  // Provider 구성을 테스트에서도 갖춰준다.
-  return MultiRepositoryProvider(
-    providers: [
-      RepositoryProvider(create: (_) => PostRepository()),
-      RepositoryProvider(create: (_) => TagRepository()),
-    ],
-    child: MaterialApp.router(
-      routerConfig: router.config(
-        deepLinkBuilder: (_) =>
-            DeepLink([CreatePostRoute(boardUuid: 'board-1')]),
-      ),
+  // 각 화면의 Bloc 은 wrappedRoute 에서 getIt 으로 UseCase 를 주입받아 만들어진다.
+  return TranslationProvider(child: MaterialApp.router(
+    routerConfig: router.config(
+      deepLinkBuilder: (_) => DeepLink([CreatePostRoute(boardUuid: 'board-1')]),
     ),
-  );
+  ));
 }
 
 void main() {
+  setUp(() async {
+    await getIt.reset();
+    await configureDependencies();
+  });
+
+  tearDown(() async => getIt.reset());
+
   testWidgets('제목/내용 입력란과 사진 추가 영역이 보인다', (tester) async {
     await tester.pumpWidget(_app());
     await tester.pumpAndSettle();

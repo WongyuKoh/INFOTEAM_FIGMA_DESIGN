@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:figma_design/i18n/strings.g.dart';
 import '../gen/assets.gen.dart';
 import '../widgets/Tag.dart';
 import 'dart:convert'; // base64Decode
-import '../api/post/post_models.dart';
+import 'package:figma_design/domain/entity/post.dart';
 
 class PostWidget extends StatelessWidget {
   final Post postContext;
@@ -57,7 +58,7 @@ class PostWidget extends StatelessWidget {
                           Text(
                             postUser != null
                                 ? postUser.nickname
-                                : '사용자를 찾을 수 없음',
+                                : context.t.auth.userNotFound,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 12,

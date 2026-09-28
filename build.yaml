@@ -1,0 +1,19 @@
+# slang(다국어) 코드 생성 설정.
+# 입력: 프로젝트 루트 i18n/ 의 *.i18n.json
+# 출력: lib/i18n/strings.g.dart (t / AppLocale / TranslationProvider / LocaleSettings)
+#
+# freezed / retrofit / injectable / auto_route 는 auto_apply 라 별도 설정 없이 계속 동작한다.
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          base_locale: ko
+          fallback_strategy: base_locale
+          input_directory: i18n
+          input_file_pattern: .i18n.json
+          output_directory: lib/i18n
+          output_file_name: strings.g.dart
+          translate_var: t
+          enum_name: AppLocale
+          flutter_integration: true

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:figma_design/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
@@ -32,7 +33,7 @@ class _TagInputBoxState extends State<TagInputBox> {
       child: TextField(
         controller: widget.controller,
         decoration: InputDecoration(
-          hintText: '태그 입력',
+          hintText: context.t.tag.inputHint,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(

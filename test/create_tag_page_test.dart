@@ -7,9 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:figma_design/api/core/api_client.dart';
-import 'package:figma_design/repository/post_repository.dart';
-import 'package:figma_design/repository/tag_repository.dart';
+import 'package:figma_design/data/core/api_client.dart';
+import 'package:figma_design/i18n/strings.g.dart';
+import 'package:figma_design/di/injection.dart';
 import 'package:figma_design/router/app_router.dart';
 import 'package:figma_design/router/app_router.gr.dart';
 
@@ -38,39 +38,37 @@ class _CapturingAdapter implements HttpClientAdapter {
   void close({bool force = false}) {}
 }
 
-/// 태그 화면을 라우터·Provider 와 함께 띄운다.
-/// 리팩터링 후 CreateTagPage 는 AutoRouteWrapper 로 Bloc 을 주입받으므로
-/// 라우터를 거쳐야 wrappedRoute 가 적용된다.
+/// 태그 화면을 라우터와 함께 띄운다.
+/// CreateTagPage 는 wrappedRoute 에서 getIt 으로 Bloc(=UseCase 주입)을 만든다.
 Widget _app({List<String> images = const []}) {
   final router = AppRouter();
-  return MultiRepositoryProvider(
-    providers: [
-      RepositoryProvider(create: (_) => PostRepository()),
-      RepositoryProvider(create: (_) => TagRepository()),
-    ],
-    child: MaterialApp.router(
-      routerConfig: router.config(
-        deepLinkBuilder: (_) => DeepLink([
-          CreateTagRoute(
-            boardUuid: 'board-1',
-            title: '제목',
-            body: '본문',
-            images: images,
-          ),
-        ]),
-      ),
+  return TranslationProvider(child: MaterialApp.router(
+    routerConfig: router.config(
+      deepLinkBuilder: (_) => DeepLink([
+        CreateTagRoute(
+          boardUuid: 'board-1',
+          title: '제목',
+          body: '본문',
+          images: images,
+        ),
+      ]),
     ),
-  );
+  ));
 }
 
 void main() {
   late _CapturingAdapter adapter;
 
-  setUp(() {
+  setUp(() async {
+    // getIt 에 Service/Repository/UseCase/Bloc 을 등록한다. (매 테스트마다 초기화)
+    await getIt.reset();
+    await configureDependencies();
     adapter = _CapturingAdapter();
     // ApiClient 는 싱글톤이므로 어댑터만 교체하면 페이지 코드를 그대로 검증할 수 있다.
     ApiClient().dio.httpClientAdapter = adapter;
   });
+
+  tearDown(() async => getIt.reset());
 
   testWidgets('추가한 태그가 /tag 등록과 /posts 본문에 실려 나간다', (tester) async {
     await tester.pumpWidget(_app());

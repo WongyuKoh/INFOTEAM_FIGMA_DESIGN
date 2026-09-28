@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
 import 'dart:convert'; // base64Decode
 import 'dart:typed_data'; // Uint8List
-import '../api/post/post_models.dart';
+import 'package:figma_design/domain/entity/post.dart';
 
 class NoticeThumbnail extends StatelessWidget {
   final String noticeTitle;

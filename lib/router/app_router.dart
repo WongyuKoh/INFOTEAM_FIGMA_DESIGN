@@ -1,18 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'app_router.gr.dart'; // 코드가 생성된 후 생성될 파일
 // 기능별 폴더에서 페이지를 가져온다. 각 폴더 안에 그 화면의 Bloc 이 함께 있다.
-import '../Page/board_list/ViewGridPage.dart';
-import '../Page/board_post/BoardPostPage.dart';
-import '../Page/create_post/CreatePostPage.dart';
-import '../Page/create_tag/CreateTagPage.dart';
-import '../Page/home/HomePage.dart';
-import '../Page/login/LoginPage.dart';
-import '../Page/newboard/NewboardPage.dart';
-import '../Page/post/PostPage.dart';
-import '../Page/profile/ProfilePage.dart';
-import '../Page/search/SearchPage.dart';
-import '../Page/signup/SignUpPage.dart';
-import '../Page/splash/SplashPage.dart';
+import '../presentation/board_list/ViewGridPage.dart';
+import '../presentation/board_post/BoardPostPage.dart';
+import '../presentation/create_post/CreatePostPage.dart';
+import '../presentation/create_tag/CreateTagPage.dart';
+import '../presentation/home/HomePage.dart';
+import '../presentation/login/LoginPage.dart';
+import '../presentation/newboard/NewboardPage.dart';
+import '../presentation/post/PostPage.dart';
+import '../presentation/profile/ProfilePage.dart';
+import '../presentation/search/SearchPage.dart';
+import '../presentation/signup/SignUpPage.dart';
+import '../presentation/splash/SplashPage.dart';
+import '../presentation/webview/WebViewPage.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
@@ -31,5 +32,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: BoardPostRoute.page, path: '/board-post'),
     AutoRoute(page: CreatePostRoute.page, path: '/create-post'),
     AutoRoute(page: CreateTagRoute.page, path: '/create-tag'),
+    AutoRoute(page: WebViewRoute.page, path: '/webview'),
   ];
 }

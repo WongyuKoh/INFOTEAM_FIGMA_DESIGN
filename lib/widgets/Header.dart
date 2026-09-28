@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:figma_design/i18n/strings.g.dart';
 import 'package:figma_design/router/app_router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +28,7 @@ class ViewGridHeader extends StatelessWidget {
               height: 32,
               margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Text(
-                '나의 게시판 앱',
+                context.t.app.title,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -80,7 +81,7 @@ class HomeHeader extends StatelessWidget {
               height: 32,
               margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Text(
-                '나의 게시판 앱',
+                context.t.app.title,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -282,7 +283,7 @@ class NewboardCreateHeader extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onComplete,
                       child: Text(
-                        '완료',
+                        context.t.common.complete,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -304,7 +305,7 @@ class NewboardCreateHeader extends StatelessWidget {
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
-                    '게시판 만들기',
+                    context.t.board.create,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -385,7 +386,7 @@ class _SearchHeaderState extends State<SearchHeader> {
                             color: Color(0xFF6E6E73),
                           ),
                           decoration: InputDecoration(
-                            hintText: '공지 검색',
+                            hintText: context.t.home.searchHint,
                             border: InputBorder.none,
                             hintStyle: TextStyle(
                               fontSize: 16, // 힌트 텍스트 크기
@@ -405,7 +406,7 @@ class _SearchHeaderState extends State<SearchHeader> {
                       context.router.back();
                     },
                     child: Text(
-                      '취소',
+                      context.t.common.cancel,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -459,7 +460,7 @@ class NewpostCreateHeader extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onNext,
                       child: Text(
-                        '다음',
+                        context.t.common.next,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -481,7 +482,7 @@ class NewpostCreateHeader extends StatelessWidget {
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
-                    '게시글 작성',
+                    context.t.post.create,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -535,7 +536,7 @@ class NewtagCreateHeader extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onComplete,
                       child: Text(
-                        '완료',
+                        context.t.common.complete,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -556,7 +557,7 @@ class NewtagCreateHeader extends StatelessWidget {
                   height: 32,
                   alignment: Alignment.center,
                   child: Text(
-                    '태그 추가',
+                    context.t.tag.add,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

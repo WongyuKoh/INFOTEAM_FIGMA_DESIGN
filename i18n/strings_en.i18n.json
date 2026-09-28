@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "My Board App"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "complete": "Done",
+    "next": "Next",
+    "add": "Add",
+    "retry": "Retry"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "auth": {
+    "login": "Log in",
+    "loginLoading": "Logging in...",
+    "signup": "Sign up",
+    "signupLoading": "Signing up...",
+    "email": "Email",
+    "password": "Password",
+    "nickname": "Nickname",
+    "noAccount": "No account? Sign up",
+    "emptyFields": "Please fill in all fields",
+    "loginEmptyFields": "Please enter your email and password",
+    "loginFailure": "Login failed: $error",
+    "signupFailure": "Sign-up failed: $error",
+    "userNotFound": "User not found",
+    "emailExists": "Email already exists"
+  },
+  "home": {
+    "searchHint": "Search notices",
+    "empty": "No posts yet",
+    "loadFailure": "Failed to load posts: $error",
+    "writeSheetTitle": "Which board do you want to post to?",
+    "createBoardFirst": "Please create a board first",
+    "shakeRefreshed": "Refreshed by shake"
+  },
+  "board": {
+    "create": "Create board",
+    "name": "Board name",
+    "nameRequired": "Please enter a board name",
+    "empty": "No boards yet (pull to refresh)",
+    "loadFailure": "Failed to load boards: $error",
+    "createFailure": "Failed to create board: $error"
+  },
+  "boardPost": {
+    "empty": "No posts yet. (pull to refresh)",
+    "loadFailure": "Failed to load posts: $error"
+  },
+  "post": {
+    "create": "Write a post",
+    "titleLabel": "Title",
+    "titleHint": "Enter a title",
+    "bodyHint": "Enter content",
+    "photoAdd": "Add photo",
+    "capture": "Camera",
+    "registered": "Your post has been created",
+    "titleRequired": "Please enter a title",
+    "createFailure": "Failed to create post: $error",
+    "photoLoadFailure": "Failed to load photos: $error"
+  },
+  "tag": {
+    "add": "Add tag",
+    "inputHint": "Enter a tag"
+  },
+  "search": {
+    "hint": "Try entering a search keyword",
+    "noResults": "No search results",
+    "failure": "Search failed: $error",
+    "resultCount(plural)": {
+      "one": "$n result",
+      "other": "$n results"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "logout": "Log out",
+    "welcome": "Welcome, $nickname!",
+    "language": "Language",
+    "korean": "한국어",
+    "english": "English",
+    "help": "Help (in-app WebView)"
+  },
+  "webview": {
+    "title": "Help"
+  }
+}

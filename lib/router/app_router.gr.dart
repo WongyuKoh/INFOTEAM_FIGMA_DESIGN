@@ -9,31 +9,33 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:collection/collection.dart' as _i15;
-import 'package:figma_design/api/post/post_models.dart' as _i16;
-import 'package:figma_design/Page/board_list/ViewGridPage.dart' as _i12;
-import 'package:figma_design/Page/board_post/BoardPostPage.dart' as _i1;
-import 'package:figma_design/Page/create_post/CreatePostPage.dart' as _i2;
-import 'package:figma_design/Page/create_tag/CreateTagPage.dart' as _i3;
-import 'package:figma_design/Page/home/HomePage.dart' as _i5;
-import 'package:figma_design/Page/login/LoginPage.dart' as _i4;
-import 'package:figma_design/Page/newboard/NewboardPage.dart' as _i6;
-import 'package:figma_design/Page/post/PostPage.dart' as _i7;
-import 'package:figma_design/Page/profile/ProfilePage.dart' as _i8;
-import 'package:figma_design/Page/search/SearchPage.dart' as _i9;
-import 'package:figma_design/Page/signup/SignUpPage.dart' as _i10;
-import 'package:figma_design/Page/splash/SplashPage.dart' as _i11;
-import 'package:flutter/material.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:collection/collection.dart' as _i16;
+import 'package:figma_design/domain/entity/post.dart' as _i17;
+import 'package:figma_design/presentation/board_list/ViewGridPage.dart' as _i12;
+import 'package:figma_design/presentation/board_post/BoardPostPage.dart' as _i1;
+import 'package:figma_design/presentation/create_post/CreatePostPage.dart'
+    as _i2;
+import 'package:figma_design/presentation/create_tag/CreateTagPage.dart' as _i3;
+import 'package:figma_design/presentation/home/HomePage.dart' as _i5;
+import 'package:figma_design/presentation/login/LoginPage.dart' as _i4;
+import 'package:figma_design/presentation/newboard/NewboardPage.dart' as _i6;
+import 'package:figma_design/presentation/post/PostPage.dart' as _i7;
+import 'package:figma_design/presentation/profile/ProfilePage.dart' as _i8;
+import 'package:figma_design/presentation/search/SearchPage.dart' as _i9;
+import 'package:figma_design/presentation/signup/SignUpPage.dart' as _i10;
+import 'package:figma_design/presentation/splash/SplashPage.dart' as _i11;
+import 'package:figma_design/presentation/webview/WebViewPage.dart' as _i13;
+import 'package:flutter/material.dart' as _i15;
 
 /// generated route for
 /// [_i1.BoardPostPage]
-class BoardPostRoute extends _i13.PageRouteInfo<BoardPostRouteArgs> {
+class BoardPostRoute extends _i14.PageRouteInfo<BoardPostRouteArgs> {
   BoardPostRoute({
-    _i14.Key? key,
+    _i15.Key? key,
     required String boardName,
     required String boardUuid,
-    List<_i13.PageRouteInfo>? children,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          BoardPostRoute.name,
          args: BoardPostRouteArgs(
@@ -46,11 +48,11 @@ class BoardPostRoute extends _i13.PageRouteInfo<BoardPostRouteArgs> {
 
   static const String name = 'BoardPostRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<BoardPostRouteArgs>();
-      return _i13.WrappedRoute(
+      return _i14.WrappedRoute(
         child: _i1.BoardPostPage(
           key: args.key,
           boardName: args.boardName,
@@ -68,7 +70,7 @@ class BoardPostRouteArgs {
     required this.boardUuid,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final String boardName;
 
@@ -94,11 +96,11 @@ class BoardPostRouteArgs {
 
 /// generated route for
 /// [_i2.CreatePostPage]
-class CreatePostRoute extends _i13.PageRouteInfo<CreatePostRouteArgs> {
+class CreatePostRoute extends _i14.PageRouteInfo<CreatePostRouteArgs> {
   CreatePostRoute({
-    _i14.Key? key,
+    _i15.Key? key,
     required String boardUuid,
-    List<_i13.PageRouteInfo>? children,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          CreatePostRoute.name,
          args: CreatePostRouteArgs(key: key, boardUuid: boardUuid),
@@ -107,11 +109,11 @@ class CreatePostRoute extends _i13.PageRouteInfo<CreatePostRouteArgs> {
 
   static const String name = 'CreatePostRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<CreatePostRouteArgs>();
-      return _i13.WrappedRoute(
+      return _i14.WrappedRoute(
         child: _i2.CreatePostPage(key: args.key, boardUuid: args.boardUuid),
       );
     },
@@ -121,7 +123,7 @@ class CreatePostRoute extends _i13.PageRouteInfo<CreatePostRouteArgs> {
 class CreatePostRouteArgs {
   const CreatePostRouteArgs({this.key, required this.boardUuid});
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final String boardUuid;
 
@@ -143,14 +145,14 @@ class CreatePostRouteArgs {
 
 /// generated route for
 /// [_i3.CreateTagPage]
-class CreateTagRoute extends _i13.PageRouteInfo<CreateTagRouteArgs> {
+class CreateTagRoute extends _i14.PageRouteInfo<CreateTagRouteArgs> {
   CreateTagRoute({
-    _i14.Key? key,
+    _i15.Key? key,
     required String boardUuid,
     required String title,
     required String body,
     List<String> images = const [],
-    List<_i13.PageRouteInfo>? children,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          CreateTagRoute.name,
          args: CreateTagRouteArgs(
@@ -165,11 +167,11 @@ class CreateTagRoute extends _i13.PageRouteInfo<CreateTagRouteArgs> {
 
   static const String name = 'CreateTagRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<CreateTagRouteArgs>();
-      return _i13.WrappedRoute(
+      return _i14.WrappedRoute(
         child: _i3.CreateTagPage(
           key: args.key,
           boardUuid: args.boardUuid,
@@ -191,7 +193,7 @@ class CreateTagRouteArgs {
     this.images = const [],
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final String boardUuid;
 
@@ -214,7 +216,7 @@ class CreateTagRouteArgs {
         boardUuid == other.boardUuid &&
         title == other.title &&
         body == other.body &&
-        const _i15.ListEquality<String>().equals(images, other.images);
+        const _i16.ListEquality<String>().equals(images, other.images);
   }
 
   @override
@@ -223,64 +225,64 @@ class CreateTagRouteArgs {
       boardUuid.hashCode ^
       title.hashCode ^
       body.hashCode ^
-      const _i15.ListEquality<String>().hash(images);
+      const _i16.ListEquality<String>().hash(images);
 }
 
 /// generated route for
 /// [_i4.LoginPage]
-class LoginRoute extends _i13.PageRouteInfo<void> {
-  const LoginRoute({List<_i13.PageRouteInfo>? children})
+class LoginRoute extends _i14.PageRouteInfo<void> {
+  const LoginRoute({List<_i14.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i4.LoginPage());
+      return _i14.WrappedRoute(child: const _i4.LoginPage());
     },
   );
 }
 
 /// generated route for
 /// [_i5.MyHomePage]
-class MyHomeRoute extends _i13.PageRouteInfo<void> {
-  const MyHomeRoute({List<_i13.PageRouteInfo>? children})
+class MyHomeRoute extends _i14.PageRouteInfo<void> {
+  const MyHomeRoute({List<_i14.PageRouteInfo>? children})
     : super(MyHomeRoute.name, initialChildren: children);
 
   static const String name = 'MyHomeRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i5.MyHomePage());
+      return _i14.WrappedRoute(child: const _i5.MyHomePage());
     },
   );
 }
 
 /// generated route for
 /// [_i6.NewboardPage]
-class NewboardRoute extends _i13.PageRouteInfo<void> {
-  const NewboardRoute({List<_i13.PageRouteInfo>? children})
+class NewboardRoute extends _i14.PageRouteInfo<void> {
+  const NewboardRoute({List<_i14.PageRouteInfo>? children})
     : super(NewboardRoute.name, initialChildren: children);
 
   static const String name = 'NewboardRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i6.NewboardPage());
+      return _i14.WrappedRoute(child: const _i6.NewboardPage());
     },
   );
 }
 
 /// generated route for
 /// [_i7.PostPage]
-class PostRoute extends _i13.PageRouteInfo<PostRouteArgs> {
+class PostRoute extends _i14.PageRouteInfo<PostRouteArgs> {
   PostRoute({
-    _i14.Key? key,
-    required _i16.Post postContext,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i17.Post postContext,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          PostRoute.name,
          args: PostRouteArgs(key: key, postContext: postContext),
@@ -289,7 +291,7 @@ class PostRoute extends _i13.PageRouteInfo<PostRouteArgs> {
 
   static const String name = 'PostRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PostRouteArgs>();
@@ -301,9 +303,9 @@ class PostRoute extends _i13.PageRouteInfo<PostRouteArgs> {
 class PostRouteArgs {
   const PostRouteArgs({this.key, required this.postContext});
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i16.Post postContext;
+  final _i17.Post postContext;
 
   @override
   String toString() {
@@ -323,13 +325,13 @@ class PostRouteArgs {
 
 /// generated route for
 /// [_i8.ProfilePage]
-class ProfileRoute extends _i13.PageRouteInfo<void> {
-  const ProfileRoute({List<_i13.PageRouteInfo>? children})
+class ProfileRoute extends _i14.PageRouteInfo<void> {
+  const ProfileRoute({List<_i14.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       return const _i8.ProfilePage();
@@ -339,45 +341,45 @@ class ProfileRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.SearchPage]
-class SearchRoute extends _i13.PageRouteInfo<void> {
-  const SearchRoute({List<_i13.PageRouteInfo>? children})
+class SearchRoute extends _i14.PageRouteInfo<void> {
+  const SearchRoute({List<_i14.PageRouteInfo>? children})
     : super(SearchRoute.name, initialChildren: children);
 
   static const String name = 'SearchRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i9.SearchPage());
+      return _i14.WrappedRoute(child: const _i9.SearchPage());
     },
   );
 }
 
 /// generated route for
 /// [_i10.SignUpPage]
-class SignUpRoute extends _i13.PageRouteInfo<void> {
-  const SignUpRoute({List<_i13.PageRouteInfo>? children})
+class SignUpRoute extends _i14.PageRouteInfo<void> {
+  const SignUpRoute({List<_i14.PageRouteInfo>? children})
     : super(SignUpRoute.name, initialChildren: children);
 
   static const String name = 'SignUpRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i10.SignUpPage());
+      return _i14.WrappedRoute(child: const _i10.SignUpPage());
     },
   );
 }
 
 /// generated route for
 /// [_i11.SplashPage]
-class SplashRoute extends _i13.PageRouteInfo<void> {
-  const SplashRoute({List<_i13.PageRouteInfo>? children})
+class SplashRoute extends _i14.PageRouteInfo<void> {
+  const SplashRoute({List<_i14.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       return const _i11.SplashPage();
@@ -387,16 +389,63 @@ class SplashRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.ViewGridPage]
-class ViewGridRoute extends _i13.PageRouteInfo<void> {
-  const ViewGridRoute({List<_i13.PageRouteInfo>? children})
+class ViewGridRoute extends _i14.PageRouteInfo<void> {
+  const ViewGridRoute({List<_i14.PageRouteInfo>? children})
     : super(ViewGridRoute.name, initialChildren: children);
 
   static const String name = 'ViewGridRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return _i13.WrappedRoute(child: const _i12.ViewGridPage());
+      return _i14.WrappedRoute(child: const _i12.ViewGridPage());
     },
   );
+}
+
+/// generated route for
+/// [_i13.WebViewPage]
+class WebViewRoute extends _i14.PageRouteInfo<WebViewRouteArgs> {
+  WebViewRoute({
+    _i15.Key? key,
+    required String url,
+    List<_i14.PageRouteInfo>? children,
+  }) : super(
+         WebViewRoute.name,
+         args: WebViewRouteArgs(key: key, url: url),
+         initialChildren: children,
+       );
+
+  static const String name = 'WebViewRoute';
+
+  static _i14.PageInfo page = _i14.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<WebViewRouteArgs>();
+      return _i13.WebViewPage(key: args.key, url: args.url);
+    },
+  );
+}
+
+class WebViewRouteArgs {
+  const WebViewRouteArgs({this.key, required this.url});
+
+  final _i15.Key? key;
+
+  final String url;
+
+  @override
+  String toString() {
+    return 'WebViewRouteArgs{key: $key, url: $url}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! WebViewRouteArgs) return false;
+    return key == other.key && url == other.url;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ url.hashCode;
 }

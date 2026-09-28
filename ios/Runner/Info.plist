@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- 네이티브 기능 권한 사용 설명 (iOS 는 반드시 사유 문구가 있어야 함) -->
+	<key>NSCameraUsageDescription</key>
+	<string>게시글 사진 촬영에 카메라를 사용합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>게시글에 첨부할 사진을 선택하기 위해 사진 보관함을 사용합니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>흔들어서 새로고침 기능에 모션 센서를 사용합니다.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

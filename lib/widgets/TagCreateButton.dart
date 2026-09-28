@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:figma_design/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../gen/assets.gen.dart';
@@ -27,7 +28,7 @@ class _TagCreateButtonState extends State<TagCreateButton> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            '추가',
+            context.t.common.add,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Color(0xFFB3B3B3),
@@ -49,7 +50,7 @@ class _TagCreateButtonState extends State<TagCreateButton> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              '추가',
+              context.t.common.add,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: Color(0xFFFFFFFF),
